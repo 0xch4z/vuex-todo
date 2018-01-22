@@ -12,15 +12,16 @@
       active-text="Show completed"
       inactive-color="#888"
     />
-    <ul id="todos">
+    <transition-group tag="ul" name="todos" id="todos">
       <todo
         v-for="item in todos"
-        v-bind:item="item"
-        v-bind:key="item.id"
+        :item="item"
+        :key="item.id"
+        class="todo-item"
         @complete="handleComplete(item)"
         @delete="handleDelete(item.id)"
       />
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -95,5 +96,20 @@ export default {
   width: 40%;
   max-width: 530px;
   min-width: 375px;
+}
+
+.todo-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.todos-enter, .todos-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.todos-leave-active {
+  position: absolute;
 }
 </style>

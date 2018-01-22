@@ -23,10 +23,10 @@ export default {
   },
   getters: {
     allTodos (state) {
-      return state.todos
+      return state.todos.reverse()
     },
     activeTodos (state) {
-      return state.todos.filter(t => !t.isComplete)
+      return state.todos.filter(t => !t.isComplete).reverse()
     },
   }
 }

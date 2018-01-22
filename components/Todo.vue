@@ -1,6 +1,11 @@
 <template>
-  <ul class="todo-root">
-    <p class="todo-title">{{ item.title }}</p>
+  <li class="todo-root">
+    <p 
+      class="todo-title"
+      :style="{ textDecoration: item.isComplete ? 'line-through' : 'none' }"
+    >
+      {{ item.title }}
+    </p>
     <icon-button
       class="todo-complete-button"
       @clicked="handleComplete"
@@ -13,23 +18,15 @@
       hint="delete"
       icon="close"
     />
-  </ul>
+  </li>
 </template>
 <script>
+import { Todo } from '@/models'
 import IconButton from './IconButton'
 
 export default {
   title: 'todo',
-  props: {
-    item: {
-      type: Object,
-      default: () => ({
-        id: '64B85E5A-EA39-4979-B7CC-3BE17562D058',
-        title: 'Title',
-        isComplete: false,
-      })
-    }
-  },
+  props: { item: Todo },
   components: { IconButton },
   methods: {
     handleComplete () {
