@@ -14,7 +14,7 @@
   </ul>
 </template>
 <script>
-import { IconButton } from './'
+import IconButton from './IconButton'
 
 export default {
   components: { 'icon-btn': IconButton },
