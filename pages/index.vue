@@ -3,20 +3,21 @@
     <el-input
       id="title-input"
       placeholder="What do you need todo?"
+      @keyup.native.enter="handleCreate"
       v-model="input"
     />
-      <el-switch
-        id="filter-switch"
-        v-model="showCompleted"
-        active-text="Show completed"
-        inactive-color="#888"
-      />
+    <el-switch
+      id="filter-switch"
+      v-model="showCompleted"
+      active-text="Show completed"
+      inactive-color="#888"
+    />
     <ul id="todos">
       <todo
         v-for="item in todos"
         v-bind:item="item"
         v-bind:key="item.id"
-        @complete="handleComplete(item.id)"
+        @complete="handleComplete(item)"
         @delete="handleDelete(item.id)"
       />
     </ul>
@@ -24,7 +25,14 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import { Todo } from '@/components'
+import {
+  CREATE_TODO,
+  DELETE_TODO,
+  COMPLETE_TODO,
+} from '@/store/mutations'
 
 export default {
   components: { Todo },
@@ -32,27 +40,30 @@ export default {
     return {
       input: '',
       showCompleted: false,
-      /* temp */
-      todos: [
-        {
-          id: '1',
-          title: 'Wash the dog',
-          isComplete: false,
-        },
-        {
-          id: '2',
-          title: 'Buy some food',
-          isComplete: false,
-        }
-      ]
     }
   },
   methods: {
-    handleComplete (id) {
-      console.log('will handle complete for id =>', id)
+    ...mapMutations({
+      createTodo: CREATE_TODO,
+      deleteTodo: DELETE_TODO,
+      completeTodo: COMPLETE_TODO,
+    }),
+
+    handleComplete (item) {
+      this.completeTodo({ todo: item })
     },
     handleDelete (id) {
-      console.log('will handle delete for id =>', id)
+      this.deleteTodo({ id })
+    },
+    handleCreate () {
+      this.createTodo({ title: this.input })
+      this.input = ''
+    }
+  },
+  computed: {
+    todos () {
+      const { allTodos, activeTodos } = this.$store.getters
+      return this.showCompleted ? allTodos : activeTodos
     }
   }
 }
