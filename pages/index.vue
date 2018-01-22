@@ -12,7 +12,13 @@
         inactive-color="#888"
       />
     <ul id="todos">
-      <todo />
+      <todo
+        v-for="item in todos"
+        v-bind:item="item"
+        v-bind:key="item.id"
+        @complete="handleComplete(item.id)"
+        @delete="handleDelete(item.id)"
+      />
     </ul>
   </div>
 </template>
@@ -26,6 +32,27 @@ export default {
     return {
       input: '',
       showCompleted: false,
+      /* temp */
+      todos: [
+        {
+          id: '1',
+          title: 'Wash the dog',
+          isComplete: false,
+        },
+        {
+          id: '2',
+          title: 'Buy some food',
+          isComplete: false,
+        }
+      ]
+    }
+  },
+  methods: {
+    handleComplete (id) {
+      console.log('will handle complete for id =>', id)
+    },
+    handleDelete (id) {
+      console.log('will handle delete for id =>', id)
     }
   }
 }

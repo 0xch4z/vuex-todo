@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: 'x-footer',
   data () {
     return {
       year: (new Date()).getFullYear(),
