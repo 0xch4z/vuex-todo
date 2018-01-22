@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'icon-button',
   props: ['icon', 'hint'],
   methods: {
     clicked () {

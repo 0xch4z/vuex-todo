@@ -1,12 +1,12 @@
 <template>
   <ul class="todo-root">
     <p class="todo-title">Text</p>
-    <icon-btn
+    <icon-button
       @clicked="handleComplete"
       hint="complete"
       icon="done"
     />
-    <icon-btn
+    <icon-button
       @clicked="handleDelete"
       hint="delete"
       icon="close"
@@ -17,7 +17,8 @@
 import IconButton from './IconButton'
 
 export default {
-  components: { 'icon-btn': IconButton },
+  title: 'todo',
+  components: { IconButton },
   methods: {
     handleComplete () {
       console.log('delete')
